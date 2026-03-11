@@ -1,0 +1,164 @@
+/* /app/globals.css */
+
+@import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=DM+Sans:wght@300;400;500&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── CSS variables – default: architect ──────────────────────────────────── */
+:root {
+  --accent: #00F2FF;
+  --accent-dim: rgba(0, 242, 255, 0.45);
+  --accent-faint: rgba(0, 242, 255, 0.1);
+  --accent-glow: 0 0 20px rgba(0, 242, 255, 0.6);
+  --card-bg: #020c12;
+}
+
+/* ── Base resets ──────────────────────────────────────────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  color-scheme: dark;
+  scroll-behavior: smooth;
+}
+
+body {
+  background: #020408;
+  color: #e8f4f8;
+  font-family: 'JetBrains Mono', monospace;
+  min-height: 100vh;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Scrollbar ──────────────────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: #020408; }
+::-webkit-scrollbar-thumb { background: var(--accent-dim); border-radius: 2px; }
+
+/* ── Selection ────────────────────────────────────────────────────────────── */
+::selection { background: var(--accent-dim); color: #fff; }
+
+/* ── Focus rings ─────────────────────────────────────────────────────────── */
+:focus-visible { outline: 1px solid var(--accent); outline-offset: 2px; }
+
+/* ── Scanlines overlay ────────────────────────────────────────────────────── */
+.scanlines {
+  position: relative;
+}
+.scanlines::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 3px,
+    rgba(0, 0, 0, 0.07) 3px,
+    rgba(0, 0, 0, 0.07) 4px
+  );
+  pointer-events: none;
+  z-index: 50;
+  border-radius: inherit;
+}
+
+/* ── Neon glow helpers ────────────────────────────────────────────────────── */
+.neon-text {
+  text-shadow: 0 0 8px var(--accent), 0 0 20px var(--accent-dim);
+}
+
+.neon-border {
+  border-color: var(--accent);
+  box-shadow: 0 0 8px var(--accent-dim), inset 0 0 8px var(--accent-faint);
+}
+
+.neon-border-strong {
+  border-color: var(--accent);
+  box-shadow: 0 0 16px var(--accent-dim), 0 0 40px var(--accent-faint), inset 0 0 16px var(--accent-faint);
+}
+
+/* ── Grid background ──────────────────────────────────────────────────────── */
+.grid-bg {
+  background-image:
+    linear-gradient(rgba(var(--accent-rgb, 0,242,255), 0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(var(--accent-rgb, 0,242,255), 0.025) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+/* ── Ambient corner glow ─────────────────────────────────────────────────── */
+.ambient-glow::before {
+  content: '';
+  position: fixed;
+  top: -200px;
+  right: -200px;
+  width: 600px;
+  height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--accent-faint) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+  transition: background 0.6s ease;
+}
+
+/* ── Terminal panel style ────────────────────────────────────────────────── */
+.terminal-panel {
+  background: rgba(7, 13, 20, 0.85);
+  border: 1px solid var(--accent);
+  border-opacity: 0.2;
+  backdrop-filter: blur(8px);
+}
+
+/* ── Input range thumb ────────────────────────────────────────────────────── */
+input[type='range']::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--accent);
+  cursor: pointer;
+  box-shadow: 0 0 6px var(--accent);
+  border: none;
+}
+input[type='range']::-moz-range-thumb {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--accent);
+  cursor: pointer;
+  box-shadow: 0 0 6px var(--accent);
+  border: none;
+}
+
+/* ── Glitch keyframe ─────────────────────────────────────────────────────── */
+@keyframes glitch {
+  0%, 90%, 100% { clip-path: inset(0 0 100% 0); transform: translate(0); }
+  92%            { clip-path: inset(20% 0 60% 0); transform: translate(-2px, 1px); }
+  94%            { clip-path: inset(55% 0 25% 0); transform: translate(2px, -1px); }
+  96%            { clip-path: inset(80% 0  5% 0); transform: translate(-1px, 0); }
+}
+
+/* ── Boot line animation ─────────────────────────────────────────────────── */
+@keyframes bootLine {
+  from { width: 0; opacity: 0; }
+  to   { width: 100%; opacity: 1; }
+}
+
+/* ── Shimmer ─────────────────────────────────────────────────────────────── */
+@keyframes shimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position:  200% center; }
+}
+
+/* ── Blink cursor ─────────────────────────────────────────────────────────── */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+.cursor-blink { animation: blink 1s step-end infinite; }
