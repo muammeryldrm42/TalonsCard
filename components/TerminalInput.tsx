@@ -39,8 +39,7 @@ export default function TerminalInput({
       <div
         className="flex items-center gap-0 border rounded"
         style={{
-          borderColor: "var(--accent)",
-          borderOpacity: 0.3,
+          borderColor: "color-mix(in srgb, var(--accent) 30%, transparent)",
           backgroundColor: "rgba(0,0,0,0.4)",
         }}
       >
